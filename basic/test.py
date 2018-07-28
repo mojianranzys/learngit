@@ -15,7 +15,7 @@ from optparse import OptionParser
 
 def parseCommand():
     usage = "usage: ./transform.py -i in.txt -o out.xls"
-    parser = OptionParser(usage = usage, version = CHECK_VERSION)
+    parser = OptionParser(usage = usage)
     parser.add_option("-i","--input1",dest = "input1",help = "please input txt_file")
     parser.add_option("-o","--output",dest = "output",help = "output xls_file")
     return parser.parse_args()
@@ -23,7 +23,7 @@ def parseCommand():
 
 def txt_xls(in_file,out_file):
      print 'transform txt into xls'
-     f=open("in_file",'r')
+     f=open(in_file,'rt')
      x=0
      y=0
      xls=xlwt.Workbook()
@@ -39,15 +39,15 @@ def txt_xls(in_file,out_file):
           x+=1  #另起一行
           y=0   #初始成第一列
      f.close()
-     xls.save('out_file')      #保存
+     xls.save(out_file)      #保存
      print 'finished'
 
 if __name__=="__main__":
     (options,args)=parseCommand()
-    if option.input == None:
+    if options.input == None:
         print "see -h for help"
-    if option.output == None:
+    if options.output == None:
         print "see -h for help"
-     txt_xls(options.input1,options.output)
+    txt_xls(options.input1,options.output)
 
 
