@@ -1,0 +1,1 @@
+python /haplox/users/zhaoys/git/learngit/virus/virus.py -1 /haplox/users/zhaoys/git/learngit/virus/S042_20180801039-7_ffpedna_451plus_8946_rg_um.bam.idxstats -2 /haplox/users/zhaoys/git/learngit/virus/S034_20180801038-c_gdna_451plus_8938_rg_um.bam.idxstats -o ./S034_20180801038-c_gdna_451plus_8938_rg_um.bam.idxstats.result
