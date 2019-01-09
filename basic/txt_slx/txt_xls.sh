@@ -1,0 +1,1 @@
+python /haplox/users/zhaoys/git/learngit/basic/txt_slx/txt_xls.py -i /haplox/rawout/180726_A00251_0037_AH5VV3DSXX/ffpedna_vs_gdna/S039_20180718026-b_ffpedna_451plus_8604/germline/result/S010_20180718025-4_gdna_451plus_8558_trans.cancer.female.txt -o ./S010_20180718025-4_gdna_451plus_8558_trans.cancer.female22.xls

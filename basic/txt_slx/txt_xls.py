@@ -22,7 +22,6 @@ def parseCommand():
 
 
 def txt_xls(in_file,out_file):
-    print 'transform txt into xls'
     f=open(in_file,"rt")
     x=0
     y=0
@@ -40,7 +39,6 @@ def txt_xls(in_file,out_file):
           y=0   #初始成第一列
     f.close()
     xls.save(out_file)      #保存
-    print 'finished'
 
 if __name__=="__main__":
     (options,args)=parseCommand()
