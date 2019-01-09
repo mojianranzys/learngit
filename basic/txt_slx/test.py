@@ -14,7 +14,7 @@ from optparse import OptionParser
 
 
 def parseCommand():
-    usage = "usage: ./transform.py -i in.txt -o out.xls"
+    usage = "usage: ./txt_xls.py -i in.txt -o out.xls"
     parser = OptionParser(usage = usage)
     parser.add_option("-i","--input1",dest = "input1",help = "please input txt_file")
     parser.add_option("-o","--output",dest = "output",help = "output xls_file")
