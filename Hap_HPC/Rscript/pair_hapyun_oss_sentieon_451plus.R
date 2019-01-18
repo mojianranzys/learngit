@@ -19,13 +19,13 @@ if(!file.exists(wk)){
 #    csv_df <- read.csv(input, header=FALSE, stringsAsFactors = FALSE, encoding = "UTF-8")
     csv_df <- read.csv(sampleSheet, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="latin1", encoding="UTF-8")
     csv_df2 <- read.csv(sampleSheet2, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="latin1", encoding="UTF-8")
-    tumor_df <- csv_df[csv_df[,9] %in% c("cfdna","healthcfdna"),]
+    tumor_df <- csv_df[csv_df[,9] %in% c("cfdna","healthcfdna","pedna"),]
     print(tumor_df[,c(2,23)])
     tumor_df$normal = rep(NA, nrow(tumor_df))
     if(nrow(tumor_df) >= 1){ 
         for(i in seq(nrow(tumor_df))){
            for(j in seq(nrow(csv_df2))){
-            if(csv_df2[j,3] == tumor_df[i,3] && grepl("gdna|saldna|healthdnai|ntdna",csv_df2[j,9])){
+            if(csv_df2[j,3] == tumor_df[i,3] && grepl("gdna|saldna|healthdna|ntdna|atdna",csv_df2[j,9])){
                 tumor_df[i,"normal"] <- csv_df2[j,1]
                 out <- paste0(rawout,"/",tumor_df[i,1])
                 sh_file <- paste0(out,"/last_pair_451plus_hapyun_sentieon.sh")
@@ -132,4 +132,3 @@ tumor_df[i, 1], "/tmp/sentieon-bwa-sort-gencore-out-sort-rmdup-bam_node_33/0001.
 
     print(csv_df[9, 3] == csv_df[10, 3])
     cat(paste(csv_df[1,], sep="-"), "\n")
-
