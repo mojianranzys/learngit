@@ -19,13 +19,13 @@ if(!file.exists(wk)){
 #    csv_df <- read.csv(input, header=FALSE, stringsAsFactors = FALSE, encoding = "UTF-8")
     csv_df <- read.csv(sampleSheet, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="UTF-8")
     csv_df2 <- read.csv(sampleSheet2, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="UTF-8")
-    tumor_df <- csv_df[csv_df[,9] %in% c("ffpedna","ttdna") & grepl("癌组织|肿块", csv_df[,26]),]
+    tumor_df <- csv_df[csv_df[,9] %in% c("ffpedna","ttdna","pedna") & grepl("癌组织|肿块", csv_df[,26]),]
     print(tumor_df[,c(2,23)])
     tumor_df$normal = rep(NA, nrow(tumor_df))
     if(nrow(tumor_df) >= 1){
         for(i in seq(nrow(tumor_df))){
            for(j in seq(nrow(csv_df2))){
-             if(csv_df2[j,3] == tumor_df[i,3] & grepl("ttdna|ffpedna|atdna",csv_df2[j,9]) & grepl("癌旁组织|正常组织", csv_df2[j,26])){
+             if(csv_df2[j,3] == tumor_df[i,3] & grepl("ttdna|ffpedna|atdna|ntdna",csv_df2[j,9]) & grepl("癌旁组织|正常组织", csv_df2[j,26])){
                 tumor_df[i,"normal"] <- csv_df2[j,1]
                 out <- paste0(rawout,"/",tumor_df[i,1])
                 csv_df3 <- c(csv_df3,out)
@@ -161,7 +161,7 @@ tumor_df[i, 1], "/tmp/sentieon-out-sort-rmdup-bam_node_36/0001.sentieon-bwa-sort
     print(csv_df[9, 3] == csv_df[10, 3])
     cat(paste(csv_df[1,], sep="-"), "\n")
 ####
-sink(sh_file_2)
+sink(sh_file_2,append = TRUE)
 for ( i in seq(length(csv_df3))){
       cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_wesplus_oss_hapyun.sh &","\n",step = ""))          
 }
