@@ -4,6 +4,7 @@ cat("zhaoys\n")
 args <- commandArgs(TRUE)
 input <- args[1]
 input2 <- args[2]
+csv_df3 <- NULL
 #ttDNA_wesplus_vs_gDAN
 sampleSheet <- paste0("/haplox/runPipelineInfo/",  input,  "/sequence_", input,  ".csv")
 sampleSheet2 <- paste0("/haplox/runPipelineInfo/",  input2,  "/sequence_", input2,  ".csv")
@@ -27,7 +28,9 @@ if(!file.exists(wk)){
              if(csv_df2[j,3] == tumor_df[i,3] & grepl("gdna|atdna",csv_df2[j,9]) & grepl("wesplus", csv_df2[j,1])){
                 tumor_df[i,"normal"] <- csv_df2[j,1]
                 out <- paste0(rawout,"/",tumor_df[i,1])
+                csv_df3 <- c(csv_df3,out)
                 sh_file <- paste0(out,"/last_pair_wesplus_oss_hapyun.sh")
+                sh_file_2 <- paste0(rawout,"/muilt_pair_ttdna_wes.sh")
                 if(!file.exists(out)){
                     dir.create(out, recursive = TRUE)
                 }
@@ -156,3 +159,9 @@ tumor_df[i, 1], "/tmp/sentieon-out-sort-rmdup-bam_node_36/0001.sentieon-bwa-sort
 
     print(csv_df[9, 3] == csv_df[10, 3])
     cat(paste(csv_df[1,], sep="-"), "\n")
+###
+sink(sh_file_2,append = TRUE)
+for ( i in seq(length(csv_df3))){
+      cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_wesplus_oss_hapyun.sh &","\n",step = ""))          
+}
+sink()
