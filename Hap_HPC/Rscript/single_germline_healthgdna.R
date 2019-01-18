@@ -22,8 +22,8 @@ if(nrow(csv_df) >= 1){
                 dir.create(out, recursive = TRUE)
                 }   
 sink(sh_file)
-cat(paste0("###/n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201901/tmp_workflow_germline-sentieon-16core64g_",
-csv_df[i,1],"/tmp/germline-sentieon-16core64g_node_5/result/ -include *germline.txt -include *chem_451.txt ",out,"/germline/result\n",
+cat(paste0("###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201901/tmp_workflow_germline-sentieon-16core64g_",
+csv_df[i,1],"/tmp/germline-sentieon-16core64g_node_5/result/ --include *germline.txt --include *chem_451.txt ",out,"/germline/result/\n",
 "###\n","perl /haplox/users/ZhouYQ/germline/bin/Gene2Disease.pl /haplox/users/ZhouYQ/germline/bin/Database/female_cancer.list ",
 out,"/germline/result/", csv_df[i,1],".germline.txt ", out,"/germline/result/", csv_df[i,1],".cancer.female.txt ",
 out,"/germline/result/", csv_df[i,1],".nocancer.female.txt ", out,"/germline/result/\n",
