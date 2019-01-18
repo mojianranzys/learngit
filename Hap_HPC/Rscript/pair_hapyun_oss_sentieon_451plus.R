@@ -3,6 +3,7 @@ print("zhaoys")
 cat("zhaoys\n")
 
 args <- commandArgs(TRUE)
+csv_df3 <- NULL
 input <- args[1]
 input2 <- args[2]
 #cfDNA_vs_gDAN
@@ -28,7 +29,9 @@ if(!file.exists(wk)){
             if(csv_df2[j,3] == tumor_df[i,3] && grepl("gdna|saldna|healthdna|ntdna|atdna",csv_df2[j,9])){
                 tumor_df[i,"normal"] <- csv_df2[j,1]
                 out <- paste0(rawout,"/",tumor_df[i,1])
+                csv_df3 <- c(csv_df3,out)
                 sh_file <- paste0(out,"/last_pair_451plus_hapyun_sentieon.sh")
+                sh_file2 <- paste0(rawout,"/muilt_pair_cfdna_451plus.sh")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
                 if(!file.exists(out)){
                     dir.create(out, recursive = TRUE)
                 }   
@@ -132,3 +135,9 @@ tumor_df[i, 1], "/tmp/sentieon-bwa-sort-gencore-out-sort-rmdup-bam_node_33/0001.
 
     print(csv_df[9, 3] == csv_df[10, 3])
     cat(paste(csv_df[1,], sep="-"), "\n")
+###
+sink(sh_file2,append = TRUE)
+for(i in seq(length(csv_df3))){
+    cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_451plus_hapyun_sentieon.sh &","\n",step = ""))  
+}
+sink()
