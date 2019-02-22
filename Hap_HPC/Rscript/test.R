@@ -160,7 +160,7 @@ tumor_df[i, 1], "/tmp/sentieon-out-sort-rmdup-bam_node_36/0001.sentieon-bwa-sort
     print(csv_df[9, 3] == csv_df[10, 3])
     cat(paste(csv_df[1,], sep="-"), "\n")
 ###
-sink(sh_file_2,append = TRUE)
+sink(sh_file_2)
 for ( i in seq(length(csv_df3))){
       cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_wesplus_oss_hapyun.sh &","\n",step = ""))          
 }

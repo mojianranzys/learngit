@@ -122,7 +122,7 @@ tumor_df[i, 1], "/tmp/sentieon-bwa-sort-gencore-out-sort-rmdup-bam_node_33/0001.
 "###\n","Rscript  /haplox/users/zhaoys/cnv/getCnv.R  /haplox/users/zhaoys/cnv/cnv.csv ", out,"/cnv/",tumor_df[i,1],"_rg_cnv_result.txt", " ", out,"/cnv/",tumor_df[i,1],"_rg_cnv_result_chr.csv","\n",
 "###\n","Rscript /haplox/users/zhaoys/cnv/hpc_cnv_germline_451.R"," ",out,"\n",
 "###\n","mkdir ",wk,"/",tumor_df[i,23],"\n","###\n","cp -r ",out,"/Annokb*", " ", wk,"/",tumor_df[i,23], "/\n",
-"###\n","cp -r ",out,"/mutscan* ", wk,"/",tumor_df[i,23],"/\n", "###\n","###\n","cp -r ",out,"/fusionscan ", wk,"/",tumor_df[i,23],"/\n", "###\n",
+"###\n","cp -r ",out,"/mutscan* ", wk,"/",tumor_df[i,23],"/\n", "###\n","cp -r ",out,"/fusionscan ", wk,"/",tumor_df[i,23],"/\n",
 "###\n","cp -r ",out, "/cnv/*rg_cnv_result.csv", " ", wk,"/",tumor_df[i,23],"/\n",
 "###\n","cp -r ",out,"/germline/result/*curl.xls"," ",wk,"/",tumor_df[i,23],"/\n",sep = ""))
                  sink()
