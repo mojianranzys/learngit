@@ -30,7 +30,7 @@ if(!file.exists(wk)){
                 tumor_df[i,"normal"] <- csv_df2[j,1]
                 out <- paste0(rawout,"/",tumor_df[i,1])
                 csv_df3 <- c(csv_df3,out)
-                sh_file <- paste0(out,"/last_pair_451plus_hapyun_sentieon_IDT.sh")
+                sh_file <- paste0(out,"/last_pair_451plus_hapyun_sentieon_HPC_IDT.sh")
                 if(!file.exists(out)){
                     dir.create(out, recursive = TRUE)
                 }   
@@ -132,6 +132,6 @@ out,"/Capture_Depth_gdna/", tumor_df[i,"normal"],"_sortbam_capture_stat.txt\n",
 sh_file2 <- paste0(rawout,"/muilt_pair_cfdna_451plus.sh")
 sink(sh_file2,append = TRUE)
 for(i in seq(length(csv_df3))){
-    cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_451plus_hapyun_sentieon.sh &","\n",step = ""))  
+    cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_451plus_hapyun_sentieon_HPC_IDT.sh" &","\n",step = ""))  
 }
 sink()
