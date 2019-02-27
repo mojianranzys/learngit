@@ -40,7 +40,7 @@ sampleSheet2 <- paste0("/haplox/runPipelineInfo/",  input2,  "/sequence_", input
         }
     for(i in seq(nrow(csv_df1))){
             for(j in seq(nrow(csv_df2))){
-                if(csv_df1[i, 3] == csv_df2[j, 3] && csv_df1[i, 2] == csv_df2[j, 2] && csv_df1[i, 9] == csv_df2[j, 9]){
+                if(csv_df1[i, 3] == csv_df2[j, 3] && csv_df1[i, 1] != csv_df2[j, 1] && csv_df1[i, 2] == csv_df2[j, 2] && csv_df1[i, 9] == csv_df2[j, 9]){
                     merge_input_R1 <- txt_input_R1[grepl(csv_df1[i,1], txt_input_R1)]
                     merge_input_R2 <- txt_input_R2[grepl(csv_df1[i,1], txt_input_R2)]
                     merge_input2_R1 <- txt_input2_R1[grepl(csv_df2[j,1], txt_input2_R1)]
