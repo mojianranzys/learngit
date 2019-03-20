@@ -1,4 +1,3 @@
-#!/usr/bin/Rscript
 print("zhaoys")
 cat("zhaoys\n")
 args <- commandArgs(TRUE)
@@ -6,8 +5,13 @@ input <- args[1]
 input2 <- args[2]
 csv_df3 <- NULL
 #ttDNA_wesplus_vs_gDAN
+path <- paste0("/haplox/runPipelineInfo/",  input)
 sampleSheet <- paste0("/haplox/runPipelineInfo/",  input,  "/sequence_", input,  ".csv")
 sampleSheet2 <- paste0("/haplox/runPipelineInfo/",  input2,  "/sequence_", input2,  ".csv")
+if(!file.exists(path)){
+    dir.create(path, recursive = TRUE)
+    system(paste0("cp /x01_haplox/runPipelineInfo/",  input,  "/sequence_", input,  ".csv ","/haplox/runPipelineInfo/",  input)) 
+}
 rawout <- paste0("/haplox/rawout/",input,"/ffpedna_vs_gdna")
 if(!file.exists(rawout)){
     dir.create(rawout, recursive = TRUE)
@@ -61,52 +65,52 @@ if(!file.exists(wk)){
                 Curl_snv_out <- paste0(out, "/NEW-Annokb-", tumor_df[i, 2], "_", tumor_df[i, 23], ".snv-wesplus.csv")
                 Curl_indel_in <- paste0(out,"/Curl_mrbam_", tumor_df[i, 2], "_", tumor_df[i, 23], ".indel-nobias-GB18030-baseline-wesplus.csv")
                 Curl_indel_out <- paste0(out, "/NEW-Annokb-", tumor_df[i, 2], "_", tumor_df[i, 23], ".indel-wesplus.csv")
-cat(paste("###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+cat(paste("###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/MrBam_pair_node_16/mrbam/ ", out,"/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
  tumor_df[i, 1], "/tmp/MrBam_pair_node_17/mrbam/ ", out,"/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_", 
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_", 
 tumor_df[i, 1], "/tmp/MutScan_node_24/ ",out, "/mutscan_",tumor_df[i,1],"\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/cnv-pair_node_25/ ", out,"/cnv/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/genefuse_huang_test_node_22/ ", out,"/fusionscan/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/germline-sentieon-16core64g_node_38/result/ --include germline* ", out,"/hapyun/result/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/varscan-annovar-pair_node_18/ ", out,"/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/fastp-16core64g_node_39/reports/ --include S* ", out,"/QC/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/fastp-16core64g_node_40/reports/ --include S* ", out,"/QC/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/Visual_msi_node_43/ ", out,"/msi/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/captureByRead_ave_depth_node_41/depth/ave_depth.stat ", out, "/Capture_Depth_cfdna/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/captureByRead_ave_depth_node_41/capture/ --include *capture_stat.txt ", out, "/Capture_Depth_cfdna/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/captureByRead_ave_depth_node_42/capture/ --include *capture_stat.txt ", out, "/Capture_Depth_gdna/\n",
-"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/captureByRead_ave_depth_node_41/depth/ave_depth.stat ", out, "/Capture_Depth_gdna/\n",
-"###\n","echo ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","echo ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/sentieon-out-sort-rmdup-bam_node_37/0001.rgbam.bam ./ >> /haplox/rawout/sort.txt\n",
-"###\n","echo ossutil cp -r oss://sz-hapres/haplox/hapyun/201902/pair_sentieon_16core64g_no_factera_",
+"###\n","echo ossutil cp -r oss://sz-hapres/haplox/hapyun/201903/pair_sentieon_16core64g_no_factera_",
 tumor_df[i, 1], "/tmp/sentieon-out-sort-rmdup-bam_node_36/0001.rgbam.bam ./ >> /haplox/rawout/sort.txt\n",
 "###\n","rename ", '"s/0001.sample/',tumor_df[i,1],'/"'," ", out, "/cnv/*\n",
-"###\n","rename ",'"s/0001.out/',tumor_df[i,1],'_mutscan/"' ," ", out,"/mutscan_",tumor_df[i,1],"/*\n",
-"###\n","mv ",out,"/fusionscan/0001.out_html.html ",out,"/fusionscan/",tumor_df[i,1],"_fusion.html \n", 
-"###\n","mv ",out,"/fusionscan/",tumor_df[i,1],"_fusion.json ",  out,"/fusionscan/",tumor_df[i,1],"_fusion.json \n",
+"###\n","rename ",'"s/0001.MutScan_out/',tumor_df[i,1],'_mutscan/"' ," ", out,"/mutscan_",tumor_df[i,1],"/*\n",
+"###\n","mv ",out,"/fusionscan/0001.genefuse_huang_test_out_html_output_22.html ",out,"/fusionscan/",tumor_df[i,1],"_fusion.html \n", 
+"###\n","mv ",out,"/fusionscan/0001.genefuse_huang_test_out_json_output_22.json ",  out,"/fusionscan/",tumor_df[i,1],"_fusion.json \n",
 "###\n" ,"rename ",'"s/germline/',tumor_df[i,"normal"],'/"', " ", out, "/hapyun/result/*","\n",
 "###\n","mv ", out, "/hapyun/ " , out, "/germline/ \n",
-"###\n","mv  ",out,"/0001.indel_txt.txt ",out,"/",tumor_df[i,1],"_indel_annovar.hg19_multianno.txt\n",
-"###\n","mv  ",out,"/0001.snv_txt.txt ",out,"/",tumor_df[i,1],"_snv_annovar.hg19_multianno.txt\n",
+"###\n","mv  ",out,"/0001.varscan-annovar-pair_indel_txt_output_18.txt ",out,"/",tumor_df[i,1],"_indel_annovar.hg19_multianno.txt\n",
+"###\n","mv  ",out,"/0001.varscan-annovar-pair_snv_txt_output_18.txt ",out,"/",tumor_df[i,1],"_snv_annovar.hg19_multianno.txt\n",
 "###\n" ,"rename ",'"s/sample/',tumor_df[i,1],'/"'," ", out, "/*","\n", 
-"###\n","mv ",out,"/msi/0001.html.html ",out,"/msi/",csv_df[i,1],"_msi.html\n",
-"###\n","mv ",out,"/msi/0001.json.json ",out,"/msi/",csv_df[i,1],"_msi.json\n",
-"###\n","mv ", out,"/Capture_Depth_cfdna/0001.sortbam_capture_stat.txt ",
+"###\n","mv ",out,"/msi/0001.Visual_msi_html_output_43.html ",out,"/msi/",csv_df[i,1],"_msi.html\n",
+"###\n","mv ",out,"/msi/0001.Visual_msi_json_output_43.json ",out,"/msi/",csv_df[i,1],"_msi.json\n",
+"###\n","mv ", out,"/Capture_Depth_cfdna/0001.sentieon-bwa-sort-gencore-out-sort-rmdup-bam_sortbam_cfdna_capture_stat.txt ",
 out,"/Capture_Depth_cfdna/", tumor_df[i,1],"_sortbam_capture_stat.txt\n",
-"###\n","mv ", out,"/Capture_Depth_gdna/0001.sortbam_capture_stat.txt ",
+"###\n","mv ", out,"/Capture_Depth_gdna/0001.sentieon-bwa-sort-gencore-out-sort-rmdup-bam_sortbam_gdna_capture_stat.txt ",
 out,"/Capture_Depth_gdna/", tumor_df[i,"normal"],"_sortbam_capture_stat.txt\n",
 "###\n","mv ", out,"/Capture_Depth_cfdna/ave_depth.stat ",out,"/Capture_Depth_cfdna/",tumor_df[i,1],"_ave_depth.stat\n",
 "###\n","mv ", out,"/Capture_Depth_gdna/ave_depth.stat ",out,"/Capture_Depth_gdna/",tumor_df[i,"normal"],"_ave_depth.stat\n",
@@ -131,14 +135,15 @@ out,"/Capture_Depth_gdna/", tumor_df[i,"normal"],"_sortbam_capture_stat.txt\n",
 "perl /haplox/users/wenger/script/germline_trans_v2.pl ", cancer_male, " ", cancer_male_trans, " \n", 
 "python /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/zhaoys/txt_xls.py -i ", cancer_female_trans, " -o ", cancer_female_trans_xls, " \n", 
 "python /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/zhaoys/txt_xls.py -i ", cancer_male_trans, " -o ", cancer_male_trans_xls, " \n", 
-"###\n","Rscript /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/idSNP.R ", out, tumor_df[i,1],"\n",
+"###\n","Rscript /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/idSNP.R ", out," ", tumor_df[i,1],"\n",
 "###\n","Rscript /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/getFFPE_wesplus.R ",out, "\n",
+"###\n","python3 /haplox/users/zhaoys/Hap_HPC/pair_ttdna_wes_warning.py -d ",out,"\n",
+"###\n","Rscript /haplox/users/zhaoys/Hap_HPC/pair_wes_up_warning.R ",out,"\n",
 "###\n","python /haplox/users/zhaoys/Annokb.wes.py -f ",Curl_snv_in," -t snv -o ",Curl_snv_out,"\n",
 "###\n","python /haplox/users/zhaoys/Annokb.wes.py -f ",Curl_indel_in," -t indel -o ",Curl_indel_out,"\n",
 "###\n","mkdir ",wk,"/",tumor_df[i,23],"\n","###\n","cp -r ",out,"/NEW*", " ", wk,"/",tumor_df[i,23], "/\n",
 "###\n","cp -r ",out, "/cnv/*cnv_genesWESPLUS.csv", " ", wk,"/",tumor_df[i,23],"/\n",
-"###\n","cp -r ",out,"/germline/result/*trans.cancer*curl.xls"," ",wk,"/",tumor_df[i,23],"/\n",
-"###\n","python3 /haplox/users/zhaoys/Hap_HPC/pair_ttdna_wes_warning.py -d ",out,"\n",sep = ""))
+"###\n","cp -r ",out,"/germline/result/*trans.cancer*curl.xls"," ",wk,"/",tumor_df[i,23],"/\n",sep = ""))
                  sink()
             }
         }
@@ -156,3 +161,4 @@ for ( i in seq(length(csv_df3))){
       cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_wesplus_oss_hapyun.sh &","\n",step = ""))          
 }
 sink()
+
