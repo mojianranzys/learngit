@@ -65,5 +65,5 @@ system(paste("wc -l ",out_csv))
 #------------step3:download to oss ------------
 sh_download <- paste0("/haplox/users/zhaoys/Script/merge_clinic/merge_download.sh")
 sink(sh_download)
-cat(paste0("ossutil cp -r tmp_workflow_rawfq_merge_",input,"_",input2,"/tmp/rawfq_merge_node_2/ oss://sz-hapbin/users/zhaoys/Rawfq-merge/","\n",sep=""))
+cat(paste0("ossutil cp -r oss://sz-hapres/haplox/hapyun/201904/tmp_workflow_rawfq_merge_",input,"_",input2,"/tmp/rawfq_merge_node_2/ oss://sz-hapbin/users/zhaoys/Rawfq-merge/","\n",sep=""))
 sink()
