@@ -33,7 +33,8 @@ sampleSheet2 <- paste0("/haplox/runPipelineInfo/",  input2,  "/sequence_", input
     myStrsplit <- function(x, split_para){
         unlist(strsplit(x, split=split_para))[8]
     }
-    out_csv <- paste0("/haplox/users/zhaoys/merge_clinic/merge_",input,"_",input2,".csv")
+#----------step1:merge to csv----------------
+    out_csv <- paste0("/haplox/users/zhaoys/Script/merge_clinic/merge_",input,"_",input2,".csv")
     if(!file.exists(out_csv)){
         file.create(out_csv, recursive = TRUE)
         }else{print("this file is exits")
@@ -50,9 +51,19 @@ sampleSheet2 <- paste0("/haplox/runPipelineInfo/",  input2,  "/sequence_", input
                     rawfq_R1_2 <- gsub("oss://sz-hapseq","",merge_input2_R1)
                     rawfq_R2_2 <- gsub("oss://sz-hapseq","",merge_input2_R2)
 #                    print(rawfq_R1_1)
-                    sink(out_csv,append=TRUE)
+                    sink(out_csv,append= TRUE)
                     cat(paste0(rawfq_R1_1,",", rawfq_R1_2,",","1","\n", rawfq_R2_1,",", rawfq_R2_2,",","1","\n", step=""))
                     sink()
                 }
             }
         }
+#-------------step2:up csv to oss -------------
+system(paste0("ossutil cp -r ",out_csv, " oss://sz-hapbin/users/zhaoys/merge_csv/"))
+cat("oss://sz-hapbin/users/zhaoys/merge_csv/merge_",input,"_",input2,".csv",sep="")
+cat("\n")
+system(paste("wc -l ",out_csv))
+#------------step3:download to oss ------------
+sh_download <- paste0("/haplox/users/zhaoys/Script/merge_clinic/merge_download.sh")
+sink(sh_download)
+cat(paste0("ossutil cp -r tmp_workflow_rawfq_merge_",input,"_",input2,"/tmp/rawfq_merge_node_2/ oss://sz-hapbin/users/zhaoys/Rawfq-merge/","\n",sep=""))
+sink()
