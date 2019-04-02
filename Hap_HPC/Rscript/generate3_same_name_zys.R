@@ -38,7 +38,7 @@ if(!file.exists(rawout)){
                     if(!file.exists(out)){
                         dir.create(out, recursive = TRUE)
                     }
-                    germline <- paste0(rawout, "/", tumor_df[i, 1], "/germline/result/", tumor_df[i, "normal"], ".germline.txt")
+                    germline <- paste0(rawout, "/", tumor_df[i, 1], "/germline/result/cd", tumor_df[i, "normal"], ".germline.txt")
                     germline_out <- paste0(rawout, "/", tumor_df[i, 1], "/germline/result")
                     cancer_female <- paste0(rawout, "/", tumor_df[i, 1], "/germline/result/", tumor_df[i, "normal"], ".cancer.female.txt")
                     cancer_female_trans <- paste0(rawout, "/", tumor_df[i, 1], "/germline/result/", tumor_df[i, "normal"], "_trans.cancer.female.txt")
