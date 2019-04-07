@@ -49,7 +49,7 @@ if(nrow(csv_df)>=0){
     }
 }
 if(!file.exists(out_cnv_file)){
-    print("no hign/low expression cnv")
+    print("no high/low expression cnv")
 }else{
     system(paste0("iconv -f gbk -t utf-8 -c ",out_cnv_file," -o ",out_cnv_file ))
     }
