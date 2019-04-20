@@ -5,12 +5,17 @@ input <- args[1]
 input2 <- args[2]
 csv_df3 <- NULL
 #ttDNA_wesplus_vs_gDAN
-path <- paste0("/haplox/runPipelineInfo/",  input)
+path1 <- paste0("/haplox/runPipelineInfo/",  input)
+path2 <- paste0("/haplox/runPipelineInfo/",  input2)
 sampleSheet <- paste0("/haplox/runPipelineInfo/",  input,  "/sequence_", input,  ".csv")
 sampleSheet2 <- paste0("/haplox/runPipelineInfo/",  input2,  "/sequence_", input2,  ".csv")
 if(!file.exists(path)){
     dir.create(path, recursive = TRUE)
     system(paste0("cp /x01_haplox/runPipelineInfo/",  input,  "/sequence_", input,  ".csv ","/haplox/runPipelineInfo/",  input)) 
+}
+if(!file.exists(path2)){
+    dir.create(path2, recursive = TRUE)
+    system(paste0("cp /x01_haplox/runPipelineInfo/",  input2,  "/sequence_", input2,  ".csv ","/haplox/runPipelineInfo/",  input2)) 
 }
 rawout <- paste0("/haplox/rawout/",input,"/ffpedna_vs_gdna")
 if(!file.exists(rawout)){
