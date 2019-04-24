@@ -5,17 +5,12 @@ input <- args[1]
 input2 <- args[2]
 csv_df3 <- NULL
 #ttDNA_wesplus_vs_gDAN
-path1 <- paste0("/haplox/runPipelineInfo/",  input)
-path2 <- paste0("/haplox/runPipelineInfo/",  input2)
+path <- paste0("/haplox/runPipelineInfo/",  input)
 sampleSheet <- paste0("/haplox/runPipelineInfo/",  input,  "/sequence_", input,  ".csv")
 sampleSheet2 <- paste0("/haplox/runPipelineInfo/",  input2,  "/sequence_", input2,  ".csv")
 if(!file.exists(path)){
     dir.create(path, recursive = TRUE)
     system(paste0("cp /x01_haplox/runPipelineInfo/",  input,  "/sequence_", input,  ".csv ","/haplox/runPipelineInfo/",  input)) 
-}
-if(!file.exists(path2)){
-    dir.create(path2, recursive = TRUE)
-    system(paste0("cp /x01_haplox/runPipelineInfo/",  input2,  "/sequence_", input2,  ".csv ","/haplox/runPipelineInfo/",  input2)) 
 }
 rawout <- paste0("/haplox/rawout/",input,"/ffpedna_vs_gdna")
 if(!file.exists(rawout)){
@@ -146,7 +141,9 @@ out,"/BamQC/",tumor_df[i,"normal"],"/depth/*\n",
 "python /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/zhaoys/txt_xls.py -i ", cancer_female_trans, " -o ", cancer_female_trans_xls, " \n", 
 "python /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/zhaoys/txt_xls.py -i ", cancer_male_trans, " -o ", cancer_male_trans_xls, " \n", 
 "###\n","Rscript /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/idSNP.R ", out," ", tumor_df[i,1],"\n",
-"###\n", "Rscript /haplox/users/zhaoys/Script/SNP_diff_warning.R ",out,"/\n",
+"###\n", "Rscript /haplox/users/zhaoys/Script/last_wes_snp_diff_warning.R ",out,"/\n",
+"###\n", "Rscript /haplox/users/zhaoys/Script/last_wes_sex_warning.R ",out,"/ ",input2,"\n",
+"###\n", "Rscript /haplox/users/zhaoys/Script/last_wes_bamqc_warning.R ",out,"/\n",
 "###\n","Rscript /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/getFFPE_wesplus.R ",out, "\n",
 "###\n","python3 /haplox/users/zhaoys/Hap_HPC/pair_ttdna_wes_warning.py -d ",out,"\n",
 "###\n","Rscript /haplox/users/zhaoys/Hap_HPC/pair_wes_up_warning.R ",out,"\n",
@@ -174,4 +171,5 @@ for ( i in seq(length(csv_df3))){
       cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_wesplus_no_facter.sh &","\n",step = ""))          
 }
 sink()
+
 
