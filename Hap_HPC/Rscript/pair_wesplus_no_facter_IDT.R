@@ -21,8 +21,8 @@ if(!file.exists(wk)){
     dir.create(wk, recursive = TRUE)
 }
 #    csv_df <- read.csv(input, header=FALSE, stringsAsFactors = FALSE, encoding = "UTF-8")
-    csv_df <- read.csv(sampleSheet, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="latin1", encoding="UTF-8")
-    csv_df2 <- read.csv(sampleSheet2, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="latin1", encoding="UTF-8")
+    csv_df <- read.csv(sampleSheet, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="GBK")
+    csv_df2 <- read.csv(sampleSheet2, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="GBK")
     tumor_df <- csv_df[csv_df[,9] %in% c("ffpedna","ttdna") & grepl("wesplus",csv_df[,1]),]
 #    print(tumor_df[,c(2,23)])
     tumor_df$normal = rep(NA, nrow(tumor_df))
@@ -106,8 +106,8 @@ tumor_df[i, 1], "/tmp/sentieon-bwa-gencore-pileup-no-umi_node_49/0001.sentieon-b
 "###\n","mv  ",out,"/0001.varscan-annovar-pair_indel_txt_output_18.txt ",out,"/",tumor_df[i,1],"_indel_annovar.hg19_multianno.txt\n",
 "###\n","mv  ",out,"/0001.varscan-annovar-pair_snv_txt_output_18.txt ",out,"/",tumor_df[i,1],"_snv_annovar.hg19_multianno.txt\n",
 "###\n" ,"rename ",'"s/sample/',tumor_df[i,1],'/"'," ", out, "/*","\n", 
-"###\n","mv ",out,"/Visual_msi/0001.Visual_msi_html_output_43.html ",out,"/Visual_msi/",csv_df[i,1],"_msi.html\n",
-"###\n","mv ",out,"/Visual_msi/0001.Visual_msi_json_output_43.json ",out,"/Visual_msi/",csv_df[i,1],"_msi.json\n",
+"###\n","mv ",out,"/Visual_msi/0001.Visual_msi_html_output_43.html ",out,"/Visual_msi/",tumor_df[i,1],"_msi.html\n",
+"###\n","mv ",out,"/Visual_msi/0001.Visual_msi_json_output_43.json ",out,"/Visual_msi/",tumor_df[i,1],"_msi.json\n",
 "###\n","rename ",'"s/0001.sentieon-bwa-gencore-pileup-no-umi_cfdna_rgbam_output_48/',tumor_df[i,1],'/"'," ", 
 out,"/BamQC/",tumor_df[i,1],"/bam_pileup_QC/*\n",
 "###\n","rename ",'"s/0001.sentieon-bwa-gencore-pileup-no-umi_gdna_rgbam_output_49/',tumor_df[i, "normal"],'/"'," ", 
@@ -141,15 +141,19 @@ out,"/BamQC/",tumor_df[i,"normal"],"/depth/*\n",
 "python /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/zhaoys/txt_xls.py -i ", cancer_female_trans, " -o ", cancer_female_trans_xls, " \n", 
 "python /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/zhaoys/txt_xls.py -i ", cancer_male_trans, " -o ", cancer_male_trans_xls, " \n", 
 "###\n","Rscript /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/idSNP.R ", out," ", tumor_df[i,1],"\n",
-"###\n", "Rscript /haplox/users/zhaoys/Script/SNP_diff_warning.R ",out,"/\n",
+"###\n", "Rscript /haplox/users/zhaoys/Script/last_wes_snp_diff_warning.R ",out,"/\n",
+"###\n", "Rscript /haplox/users/zhaoys/Script/last_wes_sex_warning.R ",out,"/ ",input2,"\n",
+"###\n", "Rscript /haplox/users/zhaoys/Script/last_wes_bamqc_warning.R ",out,"/\n",
 "###\n","Rscript /haplox/users/huang/mypy/data-analysis/ctdna_exome_pipeline/getFFPE_wesplus.R ",out, "\n",
 "###\n","python3 /haplox/users/zhaoys/Hap_HPC/pair_ttdna_wes_warning.py -d ",out,"\n",
 "###\n","Rscript /haplox/users/zhaoys/Hap_HPC/pair_wes_up_warning.R ",out,"\n",
 "###\n","python /haplox/users/zhaoys/Annokb.wes.py -f ",Curl_snv_in," -t snv -o ",Curl_snv_out,"\n",
 "###\n","python /haplox/users/zhaoys/Annokb.wes.py -f ",Curl_indel_in," -t indel -o ",Curl_indel_out,"\n",
+"###\n","Rscript /haplox/users/zhaoys/Script/gene8_wes.R ",out,"/\n",
 "###\n","mkdir ",wk,"/",tumor_df[i,23],"\n","###\n","cp -r ",out,"/NEW*", " ", wk,"/",tumor_df[i,23], "/\n",
 "###\n","cp -r ",out, "/cnv/*cnv_genesWESPLUS.csv", " ", wk,"/",tumor_df[i,23],"/\n",
-"###\n","cp -r ",out,"/germline/result/*trans.cancer*curl.xls"," ",wk,"/",tumor_df[i,23],"/\n",sep = ""))
+"###\n","cp -r ",out,"/germline/result/*trans.cancer*curl.xls"," ",wk,"/",tumor_df[i,23],"/\n",
+"###\n","cp -r ",out,"/Gene8*", " ", wk,"/",tumor_df[i,23], "/\n",sep = ""))
                  sink()
             }
         }
@@ -158,8 +162,8 @@ out,"/BamQC/",tumor_df[i,"normal"],"/depth/*\n",
         print("no ttdna_vs_gdna")
     }
 
-    print(csv_df[9, 3] == csv_df[10, 3])
-    cat(paste(csv_df[1,], sep="-"), "\n")
+#    print(csv_df[9, 3] == csv_df[10, 3])
+#    cat(paste(csv_df[1,], sep="-"), "\n")
 ###
 sh_file_2 <- paste0(rawout,"/muilt_pair_ttdna_wes.sh")
 sink(sh_file_2,append = TRUE)
@@ -167,4 +171,5 @@ for ( i in seq(length(csv_df3))){
       cat(paste0("###\n","nohup bash ",csv_df3[i],"/last_pair_wesplus_no_facter.sh &","\n",step = ""))          
 }
 sink()
+
 
