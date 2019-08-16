@@ -17,11 +17,15 @@ if(!file.exists(sheet_dir)){
 sampleSheet <- paste0("/haplox/runPipelineInfo/",  input,  "/sequence_", input,  ".csv")
 csv_df <- read.csv(sampleSheet, header=FALSE, stringsAsFactors = FALSE,  fileEncoding="GBK")
 tumor_df <- csv_df[grepl("cfdna|healthcfdna|pedna|ttdna|ffpedna",csv_df[,1]) & grepl("451plus",csv_df[,1]),]
-cmd <- paste0("ls ",path,"*gdna*bam ")
+germline_path <- paste0(path,"germline/result/")
+cmd <- paste0("ls ",germline_path,"*.germline.txt")
 all_tumor <- system(cmd,intern = TRUE)
-normal <- gsub(path,"",strsplit(all_tumor,"_rg.bam")[[1]][1])
+normal <- gsub(germline_path,"",strsplit(all_tumor,".germline.txt")[[1]][1])
+print(normal)
+gdna_data_id <- strsplit(normal,"_")[[1]][5]
 #print(normal)
 germline <- paste0(path,"germline/result/",normal)
+system(paste0("curl haplab.haplox.net/api/report/gdna/",data_id,"?gdna_data_id=",gdna_data_id))
 if(nrow(tumor_df)>=0){
   for(i in seq(nrow(tumor_df))){
     if(tumor_df[i,1] == sample){
@@ -47,3 +51,5 @@ if(nrow(tumor_df)>=0){
     }
   }
 }else{print("NO this sample")}
+
+
