@@ -1,0 +1,12 @@
+args <- commandArgs(TRUE)
+input <- args[1]
+cf_virus <- system(paste0("ls ",input,"virus/","*cfdna*result.txt"),intern = T)
+g_virus <- system(paste0("ls ",input,"virus/","*gdna*result.txt"),intern = T)
+cf_df <- read.table(cf_virus,header = F,stringsAsFactors = FALSE,sep = "\t")
+colnames(cf_df) <- c("virus","tumor")
+g_df <- read.table(g_virus,header = F,stringsAsFactors = FALSE,sep = "\t")
+colnames(g_df) <- c("virus","normal")
+out_txt <- paste0(input,"virus/virus_tumor_normal_result.txt")
+result <- merge.data.frame(cf_df,g_df,by = "virus")
+colnames(result) <- c("virus","tumor","normal")
+write.table(result,file = out_txt,quote=FALSE,row.names = FALSE,sep = "\t")
